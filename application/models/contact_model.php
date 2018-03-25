@@ -40,8 +40,7 @@ class Contact_model extends CI_Model
             $this->db->from($this->table);
             $this->db->where('id',$id);
             $query = $this->db->get();
-
-            return $query->row();
+            return $query->row_array();;
     }
     /**
      * insert a record to contacts table.
@@ -61,7 +60,7 @@ class Contact_model extends CI_Model
     public function contact_update($where, $data)
     {
         if($this->email_exists($data["email"], $where['id']))
-            return 0;
+            return -1;
         $this->db->update($this->table, $data, $where);
         return $this->db->affected_rows();
     }

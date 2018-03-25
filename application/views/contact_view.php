@@ -126,7 +126,7 @@
                 save_method = 'add';
                 $('#form')[0].reset(); // reset form on modals
                 $('#modal_form').modal('show'); // show bootstrap modal
-                //$('.modal-title').text('Add Person'); // Set Title to Bootstrap modal title
+                $('.modal-title').text('Add Contact'); // Set Title to Bootstrap modal title
             }
             /**
              * filling up modal form with contact information via ajax request
@@ -150,11 +150,8 @@
                         $('[name="last_name"]').val(data.last_name);
                         $('[name="phone"]').val(data.phone);
                         $('[name="email"]').val(data.email);
-
-
                         $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
                         $('.modal-title').text('Edit Contact'); // Set title to Bootstrap modal title
-
                     },
                     error: function (jqXHR, textStatus, errorThrown)
                     {
@@ -171,6 +168,8 @@
             function save(event)
             {
                 event.preventDefault();
+                var email = document.getElementById("email");
+                email.setCustomValidity('');
                 var url;
                 if(save_method == 'add')
                 {
@@ -192,8 +191,7 @@
                         {
                             if(data.status===false)
                             {
-                                var email = document.getElementById("email");
-                                email.setCustomValidity("the email is already registered");
+                                email.setCustomValidity("the email is already registered with another contact");
                                 return false;
                             }
                             

@@ -65,7 +65,7 @@ class Contacts extends CI_Controller {
                         'email' => $this->input->post('email'),
                 );
         $result=$this->contact_model->contact_update(array('id' => $this->input->post('id')), $data);
-        if($result==0)
+        if($result==-1)
             echo json_encode(array("status" => FALSE));
         else 
             echo json_encode(array("status" => TRUE));
