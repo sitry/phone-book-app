@@ -12,6 +12,10 @@
             <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
             <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+        <script src="<?php echo base_url('assests/bootstrap/js/bootstrap.min.js')?>"></script>
+        <script src="<?php echo base_url('assests/datatables/js/jquery.dataTables.min.js')?>"></script>
+        <script src="<?php echo base_url('assests/datatables/js/dataTables.bootstrap.js')?>"></script> 
     </head>
     <body>
         <div class="container">
@@ -20,7 +24,7 @@
             <button class="btn btn-success" onclick="add_contact()"><i class="glyphicon glyphicon-plus"></i> Add Contact</button>
             <br />
             <br />
-            <table id="table_id" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <table id="contacts" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th>first name</th>
@@ -55,10 +59,6 @@
                 </tfoot>
             </table> 
         </div>
-        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-        <script src="<?php echo base_url('assests/bootstrap/js/bootstrap.min.js')?>"></script>
-        <script src="<?php echo base_url('assests/datatables/js/jquery.dataTables.min.js')?>"></script>
-        <script src="<?php echo base_url('assests/datatables/js/dataTables.bootstrap.js')?>"></script> 
         <!-- Bootstrap modal -->
         <div class="modal fade" id="modal_form" role="dialog">
             <div class="modal-dialog">
@@ -107,13 +107,20 @@
         </div><!-- /.modal -->
         <!-- End Bootstrap modal --> 
         <script type="text/javascript">
+            /**
+             * generates table visablity
+             * @type {type}
+             */
             $(document).ready( function () {
-                $('#table_id').DataTable();
+                $('#contacts').DataTable();
             } );
             var save_method; //for save method string
             var table;
 
-
+            /**
+             * opens up the modal form
+             * @return {undefined}
+             */
             function add_contact()
             {
                 save_method = 'add';
@@ -121,7 +128,11 @@
                 $('#modal_form').modal('show'); // show bootstrap modal
                 //$('.modal-title').text('Add Person'); // Set Title to Bootstrap modal title
             }
-
+            /**
+             * filling up modal form with contact information via ajax request
+             * @param {type} id
+             * @return {undefined}
+             */
             function edit_contact(id)
             {
                 save_method = 'update';
@@ -152,6 +163,11 @@
                 });
             }
 
+            /**
+            *  sends to the server save contact information request via ajax
+
+             * @param {type} event
+             * @return {Boolean}             */
             function save(event)
             {
                 event.preventDefault();
@@ -172,19 +188,19 @@
                         type: "POST",
                         data: $("#form").serialize(),
                         dataType: "JSON",
-                        //contentType: 'application/json; charset=utf-8',
                         success: function(data)
                         {
                             if(data.status===false)
                             {
                                 var email = document.getElementById("email");
                                 email.setCustomValidity("the email is already registered");
-                                return;
+                                return false;
                             }
                             
                             //if success close modal and reload ajax table
                             $('#modal_form').modal('hide');
                             location.reload();// for reload a page
+                            return true;
                         },
                         error: function (jqXHR, textStatus, errorThrown)
                         {
@@ -197,7 +213,12 @@
                     return false;
                 }
             }
+            
+            /**
+            * sends to the server delete contact request via ajax
 
+             * @param {type} id
+             * @return {undefined}             */
             function delete_contact(id)
             {
                 if(confirm('Are you sure delete this data?'))
@@ -209,12 +230,10 @@
                         dataType: "JSON",
                         success: function(data)
                         {
-
                            location.reload();
                         },
                         error: function (jqXHR, textStatus, errorThrown)
                         {
-                            console.log(errorThrown);
                             alert('Error deleting data');
                         }
                     });
