@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2018 at 01:57 PM
+-- Generation Time: Mar 26, 2018 at 10:45 AM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.9
 
@@ -32,8 +32,8 @@ CREATE TABLE `contacts` (
   `id` int(11) NOT NULL,
   `first_name` varchar(50) NOT NULL,
   `last_name` varchar(50) NOT NULL,
-  `phone` bigint(20) NOT NULL,
-  `email` varchar(50) NOT NULL UNIQUE
+  `phone` bigint(20) NOT NULL unique,
+  `email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -41,18 +41,17 @@ CREATE TABLE `contacts` (
 --
 
 INSERT INTO `contacts` (`id`, `first_name`, `last_name`, `phone`, `email`) VALUES
-(36, 'a', 'aa', 22, 'aab@abb.com'),
-(39, 'sdf', 'saf', 234, 'sdfdsf@sdfssds.com'),
-(40, 'sdf', 'sad', 435, 'sdfdsf@sdfds.com'),
-(41, 'sdf', 'sd', 32432, 'sdfdsf@sdfs.com'),
-(42, 'sdf', 'ss', 23, 'aa@aa.com'),
-(43, 'sdfsd', 'sdf', 324432, 'dgfs@sdf.com'),
-(44, 'qqq', 'qqq', 2332, 'qqq@qqq.com'),
-(45, 'zzzzzz', 'zz', 22, 'zz@zz.com'),
-(46, 'vv', 'vv', 44, 'vv@vv.com'),
-(47, 'ww', 'ww', 33, 'eee@ee.com'),
-(48, 'dd', 'dd', 32423, 'sfsda@sdfsd.com'),
-(49, 'bbbb', 'bbb', 33223, 'bbb@aa.com');
+(50, 'aa', 'aa', 3333333, 'aa@aa.com'),
+(51, 'aaa', 'aa', 1111, 'sssss@ssssssssss.com'),
+(52, 'aa', 'aa', 33333333, 'sssssss@sss.com'),
+(53, 'sdf', 'sdffds', 333333, 'vv@vv.com'),
+(54, 'sadf', 'dsaf', 555, '555@ffff.com'),
+(55, 'sadf', 'sds', 223, '22sdsd@sdf.com'),
+(56, 'sadfsd', 'dsfsd', 4444444, 'qqq@qqq.com'),
+(57, 'hh', 'hh', 55, 'hhhhhhhhhhhh@hhhhhh.com'),
+(58, 'rfrf', 'deed', 324, 'jjjj@jjj.com'),
+(59, 'yyy', 'yy', 666, 'wer34@sdf.com'),
+(60, 'eeeee', 'eeeee', 3241, 'sadffsd@sdfsd.com');
 
 --
 -- Indexes for dumped tables
@@ -63,7 +62,7 @@ INSERT INTO `contacts` (`id`, `first_name`, `last_name`, `phone`, `email`) VALUE
 --
 ALTER TABLE `contacts`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD UNIQUE KEY `phone` (`phone`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -73,7 +72,7 @@ ALTER TABLE `contacts`
 -- AUTO_INCREMENT for table `contacts`
 --
 ALTER TABLE `contacts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

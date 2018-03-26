@@ -79,7 +79,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3">phone</label>
                                     <div class="col-md-9">
-                                        <input id="phone" type="text" name="phone" onchange="this.setCustomValidity('');" placeholder="phone" class="form-control requiredField" required> 
+                                        <input id="phone" type="number" name="phone" onchange="this.setCustomValidity('');" placeholder="phone" class="form-control requiredField" required> 
                                     </div>
                                 </div>
                                 <div class="form-group">

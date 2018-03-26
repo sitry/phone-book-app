@@ -60,9 +60,9 @@ class Contact_model extends CI_Model
     public function contact_update($where, $data)
     {
         if($this->phone_exists($data["phone"], $where['id']))
-            return -1;
+            return array("code"=>-1, "field"=>"phone");
         $this->db->update($this->table, $data, $where);
-        return $this->db->affected_rows();
+        return array("code"=>$this->db->affected_rows());
     }
     /**
      * delete a record from the contacts table.

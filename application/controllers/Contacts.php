@@ -24,7 +24,8 @@ class Contacts extends CI_Controller {
     {
         if(!$this->input->is_ajax_request())
             show_404();
-        if($this->validation()===TRUE)
+        $result=$this->validation();
+        if($result===TRUE)
         {
             $data = array(
                         'first_name' => $this->input->post('first_name'),
@@ -36,7 +37,7 @@ class Contacts extends CI_Controller {
             echo json_encode(array("status" => TRUE));
         }
         else {
-            echo json_encode(array("status" => FALSE));
+            echo json_encode(array("status" => FALSE, "field"=> $result));
         }
 
     }
@@ -65,8 +66,8 @@ class Contacts extends CI_Controller {
                         'email' => $this->input->post('email'),
                 );
         $result=$this->contact_model->contact_update(array('id' => $this->input->post('id')), $data);
-        if($result==-1)
-            echo json_encode(array("status" => FALSE));
+        if((is_array($result))&&($result["code"]==-1))
+            echo json_encode(array("status" => FALSE, "field"=>$result["field"]));
         else 
             echo json_encode(array("status" => TRUE));
     }
@@ -90,9 +91,10 @@ class Contacts extends CI_Controller {
     private function validation()
     {
         $this->form_validation->set_rules('phone','phone','is_unique[contacts.phone]');
+        $this->form_validation->set_message('is_unique', "%s");
         if ($this->form_validation->run() == FALSE) 
-            return false; 
-        return true;
+            return strip_tags(validation_errors()); 
+        return TRUE;
 
     }
 }
