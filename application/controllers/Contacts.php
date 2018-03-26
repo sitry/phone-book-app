@@ -14,8 +14,8 @@ class Contacts extends CI_Controller {
      */
     public function index()
     {
-            $data['contacts']=$this->contact_model->get_all_contacts();
-            $this->load->view('contact_view',$data);
+        $data['contacts']=$this->contact_model->get_all_contacts();
+        $this->load->view('contact_view',$data);
     }
     /**
      * Check if input is valid and add contact.
@@ -24,7 +24,7 @@ class Contacts extends CI_Controller {
     {
         if(!$this->input->is_ajax_request())
             show_404();
-        if($this->validation()==TRUE)
+        if($this->validation()===TRUE)
         {
             $data = array(
                         'first_name' => $this->input->post('first_name'),
@@ -85,15 +85,14 @@ class Contacts extends CI_Controller {
     }
 
     /**
-     * make sure the email of the contact is unique
+     * make sure the phone of the contact is unique
     **/
     private function validation()
     {
-        $this->form_validation->set_rules('email','email','is_unique[contacts.email]');
+        $this->form_validation->set_rules('phone','phone','is_unique[contacts.phone]');
         if ($this->form_validation->run() == FALSE) 
-            return false;
-        else 
-            return true;
+            return false; 
+        return true;
 
     }
 }

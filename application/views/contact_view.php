@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Simple Contacts Table</title>
+        <title>Phone Book App</title>
         <link href="<?php echo base_url('assests/bootstrap/css/bootstrap.min.css')?>" rel="stylesheet">
         <link href="<?php echo base_url('assests/datatables/css/dataTables.bootstrap.css')?>" rel="stylesheet">
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -19,7 +19,7 @@
     </head>
     <body>
         <div class="container">
-            <h3>Contacts</h3>
+            <h3>Phone Book App</h3>
             <br />
             <button class="btn btn-success" onclick="add_contact()"><i class="glyphicon glyphicon-plus"></i> Add Contact</button>
             <br />
@@ -49,13 +49,6 @@
                      <?php }?>
                 </tbody> 
                 <tfoot>
-                    <tr>
-                        <th>first name</th>
-                        <th>last name</th>
-                        <th>phone</th>
-                        <th>email</th>
-                        <th>Action</th>
-                    </tr>
                 </tfoot>
             </table> 
         </div>
@@ -86,13 +79,13 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-3">phone</label>
                                     <div class="col-md-9">
-                                        <input type="text" name="phone" placeholder="phone" class="form-control requiredField" required> 
+                                        <input id="phone" type="text" name="phone" onchange="this.setCustomValidity('');" placeholder="phone" class="form-control requiredField" required> 
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-3">email</label>
                                     <div class="col-md-9">
-                                        <input id="email" type="email" name="email" onchange="this.setCustomValidity('');" placeholder="email" class="form-control requiredField" required>
+                                        <input id="email" type="email" name="email" placeholder="email" class="form-control requiredField" required>
                                     </div>
                                 </div>
                             </div>
@@ -126,7 +119,7 @@
                 save_method = 'add';
                 $('#form')[0].reset(); // reset form on modals
                 $('#modal_form').modal('show'); // show bootstrap modal
-                $('.modal-title').text('Add Contact'); // Set Title to Bootstrap modal title
+                //$('.modal-title').text('Add Person'); // Set Title to Bootstrap modal title
             }
             /**
              * filling up modal form with contact information via ajax request
@@ -152,6 +145,7 @@
                         $('[name="email"]').val(data.email);
                         $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
                         $('.modal-title').text('Edit Contact'); // Set title to Bootstrap modal title
+
                     },
                     error: function (jqXHR, textStatus, errorThrown)
                     {
@@ -161,15 +155,15 @@
             }
 
             /**
-            *  sends to the server save contact information request via ajax
+            * *  sends to the server save contact information request via ajax
 
              * @param {type} event
-             * @return {Boolean}             */
+             * @return {undefined}             */
             function save(event)
             {
                 event.preventDefault();
-                var email = document.getElementById("email");
-                email.setCustomValidity('');
+                var phone = document.getElementById("phone");
+                phone.setCustomValidity('');
                 var url;
                 if(save_method == 'add')
                 {
@@ -191,14 +185,14 @@
                         {
                             if(data.status===false)
                             {
-                                email.setCustomValidity("the email is already registered with another contact");
-                                return false;
+                                phone.setCustomValidity("the phone is already registered by another contact"); 
+                                return;
                             }
                             
                             //if success close modal and reload ajax table
                             $('#modal_form').modal('hide');
                             location.reload();// for reload a page
-                            return true;
+                            return;
                         },
                         error: function (jqXHR, textStatus, errorThrown)
                         {
@@ -206,10 +200,7 @@
                         }
                     });
                 }
-                else
-                {
-                    return false;
-                }
+                return;
             }
             
             /**

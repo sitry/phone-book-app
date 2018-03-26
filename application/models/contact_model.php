@@ -59,7 +59,7 @@ class Contact_model extends CI_Model
      */
     public function contact_update($where, $data)
     {
-        if($this->email_exists($data["email"], $where['id']))
+        if($this->phone_exists($data["phone"], $where['id']))
             return -1;
         $this->db->update($this->table, $data, $where);
         return $this->db->affected_rows();
@@ -74,13 +74,13 @@ class Contact_model extends CI_Model
             $this->db->delete($this->table);
     }
     /**
-     * check if email exists 
-     * @param string $email the contact email.
+     * check if phone exists 
+     * @param mixed $phone the contact phone.
      * @param mixed $id the contact id.
      */
-    private function email_exists($email, $id)
+    private function phone_exists($phone, $id)
     {
-        $this->db->where('email', $email);
+        $this->db->where('phone', $phone);
         $query = $this->db->get($this->table);
         if( $query->num_rows() > 0 )
         {
