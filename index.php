@@ -7,7 +7,7 @@ session_start();
 $dbhost = "localhost";
 $dbname = "mysql";
 $dbuser = "root";
-$dbpass = "rootpasswd";
+$dbpass = "n,BenAsVY6Vr";
 
 //Connect to database
 
