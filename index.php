@@ -1,5 +1,5 @@
 <?php
-
+die("aaa");
 session_start();
 
 //Database Information
