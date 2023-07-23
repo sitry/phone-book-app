@@ -1,14 +1,12 @@
 <?php
 session_start();
-die("aaa");
-
 //Database Information
 
 $dbhost = "localhost";
 $dbname = "mysql";
 $dbuser = "root";
 $dbpass = "n,BenAsVY6Vr";
-
+die("aaa");
 //Connect to database
 
 $conn = mysql_connect ( $dbhost, $dbuser, $dbpass)or die("Could not connect: ".mysql_error());
