@@ -1,6 +1,6 @@
 <?php
-die("aaa");
 session_start();
+die("aaa");
 
 //Database Information
 
