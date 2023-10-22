@@ -2,10 +2,9 @@
 session_start();	
 $dbhost = "localhost";
 $dbuser = "root";
-$dbpass = "s,mKl2;oEG_8";
+$dbpass = "1a2b3c4d";
 
 //Connect to database
-
-$conn = mysql_connect ( $dbhost, $dbuser, $dbpass);
+$conn = mysql_connect ( $dbhost, $dbuser, $dbpass)or die("Could not connect: ".mysql_error());
 phpinfo();
 ?>
